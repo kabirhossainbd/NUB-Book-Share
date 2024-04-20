@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725538464772",
+    "project_id": "nub-book-sharing",
+    "storage_bucket": "nub-book-sharing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725538464772:android:eb122fbb4a51ccbace8151",
+        "android_client_info": {
+          "package_name": "com.NubBookSharing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4F7oydmo0wWzCcVW7vmoSVuA0g8VZmqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
