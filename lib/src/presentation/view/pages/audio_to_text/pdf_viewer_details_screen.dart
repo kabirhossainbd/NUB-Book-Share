@@ -57,15 +57,17 @@ class _PdfViewerDetailsState extends State<PdfViewerDetails> {
   @override
   void initState() {
     getFileFromUrl(widget.link).then((value){
-      setState(() {
-        if (value.path.isNotEmpty) {
-          urlPDFPath = value.path;
-          loaded = true;
-          exists = true;
-        } else {
-          exists = false;
-        }
-      });
+      if(mounted){
+        setState(() {
+          if (value.path.isNotEmpty) {
+            urlPDFPath = value.path;
+            loaded = true;
+            exists = true;
+          } else {
+            exists = false;
+          }
+        });
+      }
       },
     );
     super.initState();

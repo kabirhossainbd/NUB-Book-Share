@@ -15,7 +15,7 @@ class _DownloadBookScreenState extends State<DownloadBookScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColor.getBackgroundColor(),
-      appBar: const CustomAppBar(title: 'Saved Item',),
+      appBar: const CustomAppBar(title: 'Download Books',),
       body: const SafeArea(
         child: Center(
             child: NoDataScreen()

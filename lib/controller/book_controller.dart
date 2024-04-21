@@ -60,13 +60,15 @@ class BookController extends GetxController implements GetxService, BaseControll
   bool _isBookEmpty = true;
   bool get isBookEmpty => _isBookEmpty;
 
-  Future getAllBooks() async {
+  Future getAllBooks(bool reload) async {
     _bookDataList = [];
+    // if(reload){
+    //   update();
+    // }
     var books = await db.collection("Books").get();
     for (var book in books.docs) {
       _bookDataList.add(BookModel.fromJson(book.data()));
     }
-
     fetchUsersWhoUploadedBook();
     _isBookEmpty = false;
     update();
@@ -212,6 +214,18 @@ class BookController extends GetxController implements GetxService, BaseControll
     update();
   }
 
+  ChatUser? _authorDetails;
+  ChatUser? get authorDetails => _authorDetails;
+  getAuthorDetails(String userId) async {
+    for(var item in _authorList){
+      if(item.id == userId){
+        _authorDetails = item;
+        break;
+      }
+    }
+    getAuthorBooks(userId);
+    //update();
+  }
 
 
   double _progress = 0;

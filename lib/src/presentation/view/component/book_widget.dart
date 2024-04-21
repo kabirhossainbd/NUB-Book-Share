@@ -9,6 +9,7 @@ import 'package:nub_book_sharing/src/utils/constants/m_custom_date_converter.dar
 import 'package:nub_book_sharing/src/utils/constants/m_dimensions.dart';
 import 'package:nub_book_sharing/src/utils/constants/m_images.dart';
 import 'package:nub_book_sharing/src/utils/constants/m_styles.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../utils/constants/m_colors.dart';
 
@@ -23,13 +24,12 @@ class BookWidget extends StatelessWidget {
     return GetBuilder<SavedController>(
       builder: (saved) => GestureDetector(
         onTap: (){
-          Get.to(BookDetailsScreen(bookModel: bookModel));
-         // Get.to(PdfViewerDetails(link: bookModel.pdfUrl ?? '',));
+         Navigator.push(context, PageTransition(child: BookDetailsScreen(bookModel: bookModel), type: PageTransitionType.fade));
         },
         child: Container(
           width: Get.width * 0.5,
           margin: EdgeInsets.symmetric(vertical: isList ? 12 : 0),
-          padding:  EdgeInsets.all(isList ? 12 : 0),
+          padding:  EdgeInsets.all(isList ? 10 : 0),
           decoration: BoxDecoration(
               color: isList ? MyColor.getCardColor() : null,
               borderRadius: BorderRadius.circular(12)
@@ -131,12 +131,16 @@ class BookWidget extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          Text(bookModel.subName ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
 
-                          const SizedBox(height: 4),
-                          Text(bookModel.topicName ?? '', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
+                          if(bookModel.subName != null)...[
+                            Text(bookModel.subName ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
+                            const SizedBox(height: 4),
+                          ],
 
-                          const SizedBox(height: 4),
+                          if(bookModel.topicName != null)...[
+                            Text(bookModel.topicName ?? '', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
+                            const SizedBox(height: 4),
+                          ],
                           Row(
                             children: [
                               Text(bookModel.authorName ?? '', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault),),

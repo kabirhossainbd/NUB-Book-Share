@@ -21,22 +21,7 @@ class HomeController extends GetxController implements GetxService {
   HomeController({required this.homeRequest, required this.sharedPreferences}){
     _getNotificationState();
   }
-
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
-  /// book list
-  List<BookModel> _boolList = [];
-  List<BookModel> get boolList => _boolList;
-
-  void getBookList() async{
-    Response response = await homeRequest.getBookList();
-    if(response.statusCode == 200){
-      _boolList = [];
-      _boolList.addAll(response.body);
-    }else{
-      debugPrint(response.statusText);
-    }
-    update();
-  }
 
   int _selectTrendingIndex = 0;
   int get selectTrendingIndex => _selectTrendingIndex;
@@ -136,6 +121,16 @@ class HomeController extends GetxController implements GetxService {
     _pageIndex = pageIndex;
     setAppbarTitle(_screens[_pageIndex].title);
     update();
+  }
+
+  int _selectedIndex = 0;
+  int get selectedIndex => _selectedIndex;
+
+  Future setSelectedIndex(int val, bool notify) async{
+    _selectedIndex = val;
+    if(notify){
+      update();
+    }
   }
 
 }

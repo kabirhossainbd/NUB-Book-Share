@@ -15,7 +15,7 @@ class _RecentlyReadScreenState extends State<RecentlyReadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColor.getBackgroundColor(),
-      appBar: const CustomAppBar(title: 'Saved Item',),
+      appBar: const CustomAppBar(title: 'Recently Read',),
       body: const SafeArea(
         child: Center(
             child: NoDataScreen()

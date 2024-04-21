@@ -25,5 +25,6 @@ class MyImage {
   static const String address = 'assets/svg/address.svg';
   static const String start = 'assets/svg/start.svg';
   static const String about = 'assets/svg/person.svg';
+  static const String language = 'assets/svg/language.svg';
 
 }
