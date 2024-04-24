@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nub_book_sharing/controller/base_controller.dart';
 import 'package:nub_book_sharing/services/firebase_auth_service.dart';
 import 'package:nub_book_sharing/src/presentation/view/component/m_toast.dart';
@@ -104,11 +105,42 @@ class AuthController extends GetxController implements GetxService, BaseControll
    }
   }
 
-  logOut(){
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      DialogHelper.showLoading();
+      UserCredential? userCredential = await _auth.signInWithCredential(credential);
+      if (userCredential.user != null){
+        SessionService().userId = userCredential.user!.uid.toString();
+        DialogHelper.hideLoading();
+        Get.off(const DashboardScreen());
+      }
+    } on Exception catch (e) {
+      // TODO
+      print('exception->$e');
+    }
+  }
+
+ Future logOut() async{
     DialogHelper.showLoading();
+    if (GoogleSignIn().currentUser != null) {
+      await GoogleSignIn().signOut();
+    }
+    try {
+      await GoogleSignIn().disconnect();
+    } catch (e) {
+      debugPrint('failed to disconnect on signout');
+    }
     _auth.signOut().then((value){
       SessionService().userId = '';
-      Get.off(const LoginScreen());
+      Get.offAll(const LoginScreen());
     });
     DialogHelper.hideLoading();
     update();

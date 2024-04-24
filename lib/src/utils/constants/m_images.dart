@@ -8,6 +8,7 @@ class MyImage {
   static const String image4 = 'assets/images/image4.png';
   static const String image5 = 'assets/images/image5.png';
   static const String image6 = 'assets/images/friends.jpg';
+  static const String google = 'assets/images/google.png';
 
   /// for svg image
   static const String filter = 'assets/svg/filter-outline.svg';
