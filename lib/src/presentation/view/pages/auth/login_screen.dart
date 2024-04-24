@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: Column( crossAxisAlignment: CrossAxisAlignment.center, mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text('NUB Book', style: robotoBold.copyWith(fontSize: 36,color:  MyColor.getPrimaryColor())),
+                              Text('NUB Study Materials Bank', style: robotoBold.copyWith(fontSize: 36,color:  MyColor.getPrimaryColor()), textAlign: TextAlign.center,),
                               const SizedBox(height: MySizes.paddingSizeExtraSmall),
                               Text('Make life easy and keep notes of everything', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge), textAlign: TextAlign.center,),
                               ],

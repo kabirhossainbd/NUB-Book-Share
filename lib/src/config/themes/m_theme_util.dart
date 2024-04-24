@@ -18,7 +18,7 @@ class ThemeUtil{
   static void allScreenTheme(){
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
-            statusBarColor: MyColor.colorWhite,
+            statusBarColor: MyColor.colorBlack,
             statusBarIconBrightness: Brightness.light,
             systemNavigationBarColor: MyColor.colorBlack,
             systemNavigationBarIconBrightness: Brightness.dark

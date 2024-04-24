@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         title:  Container(
                           height: 48,
                           alignment: Alignment.center,
-                          margin: const EdgeInsets.fromLTRB(16,16,16,8),
+                          margin: const EdgeInsets.fromLTRB(0,16,0,10),
                           padding: const EdgeInsets.only(left: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
@@ -122,7 +122,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     },
                     child: ListView(
                       children: [
-                        const SizedBox(height: 16),
                         CarouselSlider(
                           options: CarouselOptions(
                               autoPlay: false,
@@ -157,14 +156,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             const SizedBox(height: 12),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row( crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: book.authorList.length >= 3 ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: book.authorList.length >= 4 ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
                                 children: List.generate(book.authorList.length > 4 ? 4 : book.authorList.length,(index){
-                                  String name = '';
+                                  /*String name = '';
                                   if(book.authorList[index].name != null){
-                                    name = book.authorList[index].name!.length > 8
-                                        ? '${book.authorList[index].name!.substring(0, 8)}...'
+                                    name = book.authorList[index].name!.length > 6
+                                        ? '${book.authorList[index].name!.substring(0, 10)}...'
                                         : book.authorList[index].name ?? '';
-                                  }
+                                  }*/
                                   return InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -175,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     } ,
                                     child: Container(
                                       alignment: Alignment.center,
-                                      padding: book.authorList.length >= 3 ? EdgeInsets.zero : const EdgeInsets.only(left: 8,right: 8),
+                                      width: book.authorList.length >= 4 ? 80 : 100,
+                                      padding: book.authorList.length >= 4 ? EdgeInsets.zero : const EdgeInsets.only(left: 8,right: 8),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                             ),
                                           ),
                                           const SizedBox(height: 8,),
-                                          Text(name, style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault), overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
+                                          Text(book.authorList[index].name ?? "", style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault), maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
                                         ],
                                       ),
                                     ),

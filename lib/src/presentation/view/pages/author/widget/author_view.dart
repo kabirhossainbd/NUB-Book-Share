@@ -29,7 +29,7 @@ class _AuthorViewState extends State<AuthorView> {
       } ,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipOval(
             child: CustomImageDemo(
@@ -40,9 +40,11 @@ class _AuthorViewState extends State<AuthorView> {
             ),
           ),
           const SizedBox(height: 8,),
-          Text(widget.authorModel.name ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault), overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)
+          Text(widget.authorModel.name ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault), overflow: TextOverflow.ellipsis,textAlign: TextAlign.center, maxLines: 2,)
         ],
       ),
     );
   }
+
+
 }

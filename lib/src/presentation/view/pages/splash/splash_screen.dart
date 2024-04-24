@@ -34,18 +34,35 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     return Scaffold(
         key: _globalKey,
         backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
+        extendBody: true,
         body: Stack(
           children: [
             Container(
               height: double.infinity,
               width: double.infinity,
               decoration:  BoxDecoration(
-               color: MyColor.getSurfaceColor(),
+                gradient:  LinearGradient(
+                    colors: [
+                      MyColor.colorSecondary,
+                      MyColor.colorPrimary,
+
+                      MyColor.getPrimaryColor(),
+
+
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.1, 0.5,1],
+                    tileMode: TileMode.clamp),
               ),
             ),
             Align(
               alignment: Alignment.center,
-              child: Text('NUB Book', style: robotoRegular.copyWith(color: MyColor.colorPrimary, fontSize: 35),),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text('NUB Study Materials Bank', style: robotoRegular.copyWith(color: MyColor.colorWhite, fontSize: 35), textAlign: TextAlign.center,),
+              ),
             ),
           ],
         )

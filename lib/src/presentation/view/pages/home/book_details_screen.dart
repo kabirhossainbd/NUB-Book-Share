@@ -152,135 +152,135 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>  with SingleTicke
                     ]),
               ),
 
-              Center(
-                child: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: Text('Details', style: robotoBold.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
+              ///for tabview
+              [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: Text('Details', style: robotoBold.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),textAlign: TextAlign.start,),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(widget.bookModel.description ?? '', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault),),
+                    ),
+                  ],
+                ),
+
+                Column( crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if(book.authorDetails != null)...[
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.fromLTRB(16,16,16,0),
+                        decoration: BoxDecoration(
+                            color: MyColor.getCardColor(),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: MyColor.getGreyColor().withOpacity(0.1),
+                                spreadRadius: 0.5,
+                                blurRadius: 0.5,
+                                offset: const Offset(2,2),
+                              ), BoxShadow(
+                                color: MyColor.getGreyColor().withOpacity(0.1),
+                                spreadRadius: 0.5,
+                                blurRadius: 0.5,
+                                offset: const Offset(-1,-1),
+                              )
+                            ]
+                        ),
+                        child: Row(
+                          children: [
+                            ProfileAvatar(url: book.authorDetails!.profile ?? '',),
+                            const SizedBox(width: 8),
+                            Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(book.authorDetails!.name ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault),),
+                                const SizedBox(height: 4),
+                                Text(book.authorDetails!.occupation ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeSmall),),
+                              ],
+                            )),
+                            const SizedBox(width: 8),
+                            Row(
+                              children: [
+                                if(SessionService().userId != book.authorDetails!.id)...[
+                                  IconButton(onPressed: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: book.authorDetails!)));
+                                  }, icon: const Icon(CupertinoIcons.chat_bubble_2)),
+
+                                ],IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
+                      const SizedBox(height: 31),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(widget.bookModel.description ?? '', style: robotoLight.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault),),
+                        child: Text('Overview', style: robotoBold.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: MyColor.getCardColor(),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: MyColor.getGreyColor().withOpacity(0.1),
+                                spreadRadius: 0.5,
+                                blurRadius: 0.5,
+                                offset: const Offset(2,2),
+                              ), BoxShadow(
+                                color: MyColor.getGreyColor().withOpacity(0.1),
+                                spreadRadius: 0.5,
+                                blurRadius: 0.5,
+                                offset: const Offset(-1,-1),
+                              )
+                            ]
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _customRow(MyImage.email,book.authorDetails!.email ?? ''),
+                            _customRow(MyImage.call,book.authorDetails!.phone ?? ''),
+                            _customRow(MyImage.address,book.authorDetails!.address ?? ''),
+                            _customRow(MyImage.start,book.authorDetails!.varsityId ?? ''),
+                            _customRow(MyImage.about,book.authorDetails!.about ?? ''),
+                          ],
+                        ),
+                      ),
+                    ]else...[
+                      const Center(child: CircularProgressIndicator())
+                    ],
+
+                    const SizedBox(height: 16),
+                    _customTitleRow("Recent publish", onTap: (){}),
+                    if(book.isAuthorBooksEmpty)...[
+                      const Center(child: CircularProgressIndicator()),
+                    ]else...[
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Row(
+                              children: List.generate(book.authorBooksList.length > 5 ? 5 : book.authorBooksList.length,(index){
+                                return  Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: BookWidget(bookModel: book.authorBooksList[index], isReading: false,),
+                                );
+                              }),
+                            )
+                        ),
                       ),
                     ],
-                  ),
-                  Column( crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if(book.authorDetails != null)...[
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          margin: const EdgeInsets.fromLTRB(16,16,16,0),
-                          decoration: BoxDecoration(
-                              color: MyColor.getCardColor(),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: MyColor.getGreyColor().withOpacity(0.1),
-                                  spreadRadius: 0.5,
-                                  blurRadius: 0.5,
-                                  offset: const Offset(2,2),
-                                ), BoxShadow(
-                                  color: MyColor.getGreyColor().withOpacity(0.1),
-                                  spreadRadius: 0.5,
-                                  blurRadius: 0.5,
-                                  offset: const Offset(-1,-1),
-                                )
-                              ]
-                          ),
-                          child: Row(
-                            children: [
-                              ProfileAvatar(url: book.authorDetails!.profile ?? '',),
-                              const SizedBox(width: 8),
-                              Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(book.authorDetails!.name ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeDefault),),
-                                  const SizedBox(height: 4),
-                                  Text(book.authorDetails!.occupation ?? '', style: robotoRegular.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeSmall),),
-                                ],
-                              )),
-                              const SizedBox(width: 8),
-                              Row(
-                                children: [
-                                  if(SessionService().userId != book.authorDetails!.id)...[
-                                    IconButton(onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: book.authorDetails!)));
-                                    }, icon: const Icon(CupertinoIcons.chat_bubble_2)),
+                  ],
+                ),
 
-                                  ],IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 31),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text('Overview', style: robotoBold.copyWith(color: MyColor.getTextColor(), fontSize: MySizes.fontSizeLarge),),
-                        ),
-                        const SizedBox(height: 4),
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          margin: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                              color: MyColor.getCardColor(),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: MyColor.getGreyColor().withOpacity(0.1),
-                                  spreadRadius: 0.5,
-                                  blurRadius: 0.5,
-                                  offset: const Offset(2,2),
-                                ), BoxShadow(
-                                  color: MyColor.getGreyColor().withOpacity(0.1),
-                                  spreadRadius: 0.5,
-                                  blurRadius: 0.5,
-                                  offset: const Offset(-1,-1),
-                                )
-                              ]
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _customRow(MyImage.email,book.authorDetails!.email ?? ''),
-                              _customRow(MyImage.call,book.authorDetails!.phone ?? ''),
-                              _customRow(MyImage.address,book.authorDetails!.address ?? ''),
-                              _customRow(MyImage.start,book.authorDetails!.varsityId ?? ''),
-                              _customRow(MyImage.about,book.authorDetails!.about ?? ''),
-                            ],
-                          ),
-                        ),
-                      ]else...[
-                        const Center(child: CircularProgressIndicator())
-                      ],
-
-                      const SizedBox(height: 16),
-                      _customTitleRow("Recent publish", onTap: (){}),
-                      if(book.isAuthorBooksEmpty)...[
-                        const Center(child: CircularProgressIndicator()),
-                      ]else...[
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8),
-                              child: Row(
-                                children: List.generate(book.authorBooksList.length > 5 ? 5 : book.authorBooksList.length,(index){
-                                  return  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: BookWidget(bookModel: book.authorBooksList[index], isReading: false,),
-                                  );
-                                }),
-                              )
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-
-                ][_mainTabController.index],
-              ),
+              ][_mainTabController.index],
 
               const SizedBox(height: 12),
             ],

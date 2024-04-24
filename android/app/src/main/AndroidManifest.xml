@@ -26,7 +26,7 @@
     </queries>
 
     <application
-        android:label="NUB Book"
+        android:label="NUB Study Bank"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

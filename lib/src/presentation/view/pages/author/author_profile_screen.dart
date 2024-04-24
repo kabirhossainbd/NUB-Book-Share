@@ -118,7 +118,7 @@ class _AuthorProfileScreenState extends State<AuthorProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _customRow(MyImage.email,widget.authorModel.email ?? ''),
-                      _customRow(MyImage.call,widget.authorModel.phone ?? ''),
+                      _customRow(MyImage.call,widget.authorModel.phone != null && widget.authorModel.phone != 'null' ? widget.authorModel.phone! : ''),
                       _customRow(MyImage.address,widget.authorModel.address ?? ''),
                       _customRow(MyImage.start,widget.authorModel.varsityId ?? ''),
                       _customRow(MyImage.about,widget.authorModel.about ?? ''),
@@ -172,7 +172,7 @@ class _AuthorProfileScreenState extends State<AuthorProfileScreen> {
   }
 
   _customRow(String icon,String title){
-    return title.isNotEmpty ? Padding(
+    return (title.isNotEmpty) ? Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: Row(
         children: [

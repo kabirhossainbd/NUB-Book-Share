@@ -86,19 +86,18 @@ class _AuthorScreenState extends State<AuthorScreen> {
 
                 const SizedBox(height: 16),
                 _customTitleRow("Publisher", onTap: (){}),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: StaggeredGridView.countBuilder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      itemCount: book.authorList.length,
-                      itemBuilder: (context, idx) =>  AuthorView(authorModel: book.authorList[idx]),
-                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1)),
-                  // staggeredTileBuilder: (index) => StaggeredTile.count(index == 2 ? 6 : 3 , index == 2 ? 1.5 : 3)),
-                ),
+                GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 0,
+                        mainAxisExtent: 140
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+
+                    itemCount: book.authorList.length,
+                    itemBuilder: (context, idx) =>  AuthorView(authorModel: book.authorList[idx])),
               ],
             ),
           ),

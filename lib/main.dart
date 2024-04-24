@@ -20,29 +20,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ThemeUtil.allScreenTheme();
   try {
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
+    await Firebase.initializeApp(options: const FirebaseOptions(
           apiKey: 'AIzaSyA4F7oydmo0wWzCcVW7vmoSVuA0g8VZmqo',
           appId: '1:725538464772:android:eb122fbb4a51ccbace8151',
           messagingSenderId: '725538464772',
           projectId: 'nub-book-sharing',
           storageBucket: "nub-book-sharing.appspot.com",
-        )
-    ).whenComplete(() => FirebaseMessaging.instance.requestPermission().whenComplete((){
+        )).whenComplete(() => FirebaseMessaging.instance.requestPermission().whenComplete((){
       handleNotification();
     }));
   } catch (_) {
-    debugPrint("error ");
+    debugPrint("error");
   }
- //  var result = await FlutterNotificationChannel.registerNotificationChannel(
- //      description: 'For Showing Message Notification',
- //      id: 'chats',
- //      importance: NotificationImportance.IMPORTANCE_HIGH,
- //      name: 'Chats');
- // log('\nNotification Channel Result: $result');
-  await di.init();
   Map<String, Map<String, String>> localString = await di.init();
-  runApp( MyApp(localString: localString,));
+  runApp( MyApp(localString: localString));
 }
 
 class MyApp extends StatefulWidget {
@@ -63,7 +54,6 @@ class _MyAppState extends State<MyApp> {
         onNotificationCreatedMethod: NotificationController.onNotificationCreatedMethod,
         onNotificationDisplayedMethod: NotificationController.onNotificationDisplayedMethod,
         onDismissActionReceivedMethod: NotificationController.onDismissActionReceivedMethod);
-
     super.initState();
   }
   @override
