@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           title:  Container(
                             height: 48,
                             alignment: Alignment.center,
-                            margin: const EdgeInsets.fromLTRB(16,16,16,8),
+                            margin: const EdgeInsets.fromLTRB(0,16,0,8),
                             padding: const EdgeInsets.only(left: 4),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),

@@ -1,13 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nub_book_sharing/controller/auth_controller.dart';
+import 'package:nub_book_sharing/services/firebase_auth_service.dart';
 import 'package:nub_book_sharing/src/presentation/view/component/custom_text_field.dart';
 import 'package:nub_book_sharing/src/presentation/view/component/m_button.dart';
 import 'package:nub_book_sharing/src/presentation/view/pages/auth/registation_screen.dart';
+import 'package:nub_book_sharing/src/presentation/view/pages/drawer/drawer_dashboard.dart';
 import 'package:nub_book_sharing/src/utils/constants/m_colors.dart';
+import 'package:nub_book_sharing/src/utils/constants/m_custom_string_helper.dart';
 import 'package:nub_book_sharing/src/utils/constants/m_dimensions.dart';
+import 'package:nub_book_sharing/src/utils/constants/m_images.dart';
 import 'package:nub_book_sharing/src/utils/constants/m_styles.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isEmailError = false;
   bool _isPasswordError = false;
 
+  User? _user;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +138,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         auth.login(email, password);
                       }
                     }),
+
+                    const SizedBox(height: MySizes.paddingSizeExtraLarge),
+
+                    GestureDetector(
+                      onTap: ()=> auth.signInWithGoogle(),
+                      child: Container(
+                        height: 48,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: MyColor.getBackgroundColor(),
+                          border: Border.all(color: MyColor.getPrimaryColor())
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(MyImage.google, width: 24, height: 24,),
+                            const SizedBox(width: 6),
+                            Text('Login with Google', style: robotoRegular.copyWith(color: MyColor.colorPrimary, fontSize: MySizes.fontSizeLarge),),
+                          ],
+                        ),
+                      ),
+                    ),
 
                     const SizedBox(height: MySizes.paddingSizeExtraLarge),
                     RichText(text: TextSpan(
